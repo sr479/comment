@@ -1,0 +1,92 @@
+/* 保持手机上的中文可读性；输入框至少 16px，避免 iOS 聚焦时自动放大。 */
+.review-actions { display:flex; align-items:center; gap:8px; }
+.hero-copy { font-size:13px; }
+.form-heading p, .privacy-banner strong { font-size:12px; }
+.privacy-banner span { font-size:11px; }
+.form-section legend { font-size:14px; }
+.target-switch > button { font-size:13px; }
+.rating-option > span { font-size:11px; }
+.content-section > .field-hint { font-size:12px; }
+.textarea-wrap textarea { font-size:13px; }
+.tags-label, .tag-options > button { font-size:11px; }
+.submit-button { font-size:14px; }
+.submit-caption, .submit-caption button { font-size:10px; }
+.public-footer { font-size:10px; }
+.brand small { font-size:10px; }
+.admin-app .form-label { font-size:13px; }
+.admin-app .form-label input, .admin-app .form-label textarea,
+.admin-app .form-label select { font-size:13px; }
+.admin-sidebar nav > button { font-size:13px; }
+.section-heading h2 { font-size:14px; }
+.stat-card > div > span { font-size:12px; }
+.stat-card > p, .reviews-heading p { font-size:11px; }
+.filters select, .search-input > input, .date-filter input { font-size:12px; }
+.table-head { font-size:11px; }
+.review-meta strong, .review-preview p { font-size:12px; }
+.review-meta small, .review-row time, .target-cell { font-size:11px; }
+.review-row .status-badge { font-size:10px; }
+.pagination { font-size:11px; }
+.empty h3 { font-size:14px; }
+.empty p { font-size:12px; }
+.management-card > .field-hint, .management-note,
+.qr-instructions li p { font-size:12px; }
+.qr-instructions li strong { font-size:13px; }
+.login-security { font-size:10px; }
+@media (max-width:700px) {
+  .public-header .brand small { font-size:9px; }
+  .private-pill { font-size:10px; }
+  .hero-copy { font-size:12px; }
+  .public-story .eyebrow { font-size:10px; letter-spacing:1px; }
+  .form-heading h2 { font-size:19px; }
+  .form-heading p { font-size:11px; }
+  .privacy-banner strong { font-size:12px; }
+  .privacy-banner span { font-size:10px; }
+  .form-section legend { font-size:14px; }
+  .step { font-size:13px; }
+  .required { font-size:10px; }
+  .target-switch > button { font-size:13px; min-height:46px; }
+  .rating-option { gap:10px; padding:10px 0; }
+  .rating-option > span { font-size:11px; letter-spacing:-.5px; }
+  .content-section > .field-hint { font-size:12px; }
+  .textarea-wrap textarea, .select-wrap select { font-size:16px; }
+  .textarea-wrap textarea { min-height:172px; }
+  .char-count { font-size:10px; }
+  .tags-label { font-size:12px; }
+  .tags-label > span { font-size:10px; }
+  .tag-options > button { font-size:12px; padding:8px 10px; }
+  .submit-button { min-height:49px; font-size:14px; }
+  .submit-caption, .submit-caption button { font-size:10px; }
+  .public-footer { font-size:10px; }
+  .form-label input, .form-label textarea, .form-label select,
+  .admin-app .form-label input, .admin-app .form-label textarea,
+  .admin-app .form-label select, .add-staff > input { font-size:16px; }
+  .form-label { font-size:13px; }
+  .filters .search-input > input { font-size:16px; }
+  .filters select { font-size:12px; }
+  .date-filter input { font-size:12px; }
+  .reviews-heading .review-actions { gap:6px; }
+  .reviews-heading .button { font-size:10px; padding:7px; }
+  .reviews-heading > div > p { display:none; }
+  .review-meta strong { font-size:12px; }
+  .review-preview p { font-size:13px; line-height:1.8; }
+  .review-row > .target-cell, .review-row > .status-badge { font-size:10px; }
+  .pagination { font-size:10px; }
+  .stat-card > div > span { font-size:12px; }
+  .stat-card > p { font-size:10px; }
+  .empty h3 { font-size:13px; }
+  .empty p { font-size:11px; }
+  .detail-content { font-size:14px; }
+  .management-card > .field-hint, .management-note { font-size:11px; }
+  .staff-row > strong { font-size:13px; }
+  .management-card .section-heading > span { font-size:10px; }
+  .share-link code, .local-notice { font-size:12px; }
+  .qr-instructions li p { font-size:12px; }
+}
+@media (max-width:374px) {
+  .private-pill { font-size:9px; }
+  .form-section legend { font-size:13px; gap:6px; }
+  .rating-option > span { font-size:10px; }
+  .privacy-banner strong { font-size:11px; }
+  .privacy-banner span { font-size:9px; }
+  .tag-options > button { font-size:11px; }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "fanmaxi-feedback",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.16.0" },
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env server/index.js --dev",
+    "build": "tsc --noEmit && vite build",
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "test": "node --test test/*.test.js",
+    "admin:init": "node --env-file-if-exists=.env scripts/admin-init.js",
+    "backup": "node --env-file-if-exists=.env scripts/backup.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "lucide-react": "^0.468.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "supertest": "^7.1.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.1.0"
+  }
+}
