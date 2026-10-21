@@ -12,7 +12,7 @@ const pageNames = { reviews: '评价管理', staff: '员工管理', qr: '评价�
 function Stars({ value }: { value: number }) {
   return <span className="stars" aria-label={`${value} 星`}>{[1, 2, 3, 4, 5].map((n) => <Star key={n} size={13} strokeWidth={1.4} fill={n <= value ? 'currentColor' : 'none'} className={n <= value ? '' : 'star-empty'}/>)}</span>;
 }
-function Login({ onLogin, notice }: { onLogin: (session: Session) => void; notice?: string }) {
+function Login({ onLogin }: { onLogin: (session: Session) => void }) {
   const [username, setUsername] = useState(''); const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); const [error, setError] = useState(''); const [busy, setBusy] = useState(false);
   async function submit(event: FormEvent) {
@@ -53,7 +53,7 @@ export default function Admin() {
     return () => { ignore = true; clearTimeout(timer); };
   }, [session, page, pageNumber, filters, refresh, handleError]);
   if (checking) return <div className="loading"><LoaderCircle className="spin" size={20}/> 正在打开工作台…</div>;
-  if (!session) return <><Login onLogin={signIn} notice={message}/>{message && <div className="toast" role="status"><CircleCheck size={17}/>{message}</div>}</>;
+  if (!session) return <><Login onLogin={signIn}/>{message && <div className="toast" role="status"><CircleCheck size={17}/>{message}</div>}</>;
   async function logout() {
     try { await post('/admin/logout'); setSession(null); setCsrf(''); } catch (err) { handleError(err); }
   }

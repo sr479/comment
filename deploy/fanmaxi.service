@@ -8,7 +8,7 @@ User=fanmaxi
 Group=fanmaxi
 WorkingDirectory=/opt/fanmaxi-feedback
 EnvironmentFile=/opt/fanmaxi-feedback/.env
-ExecStart=/usr/bin/node /opt/fanmaxi-feedback/server/index.js
+ExecStart=/opt/fanmaxi-node/bin/node /opt/fanmaxi-feedback/server/index.js
 Restart=on-failure
 RestartSec=5
 UMask=0077
@@ -17,7 +17,9 @@ PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
 ReadWritePaths=/opt/fanmaxi-feedback/data /opt/fanmaxi-feedback/backups
-MemoryMax=384M
+MemoryMax=256M
+CPUQuota=50%
+TasksMax=100
 
 [Install]
 WantedBy=multi-user.target

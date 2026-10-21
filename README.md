@@ -78,6 +78,8 @@ curl -fsS http://127.0.0.1:3086/api/health
 
 可用独立 Node.js 24 安装路径运行，切勿替换已有业务依赖的 Node.js。先运行 `npm ci`、`npm test`、`npm run build`、`npm run admin:init`。`deploy/fanmaxi.service` 提供 systemd 模板：创建专用 `fanmaxi` 系统用户，确认 `ExecStart` 的 Node 路径，赋予该用户项目读取权限及 `data/`、`backups/` 写入权限后安装。配置文件仅对服务账号开放。
 
+当前服务器 Docker Hub 连接超时时，可将官方 Node.js 24 安装在 `/opt/fanmaxi-node`，先用 Node.js 官方 `SHASUMS256.txt` 校验下载包，再使用该目录的 `node`/`npm`。服务模板默认采用此路径，并限制到 256MB 内存和 50% CPU；不会修改 `/usr/bin/node` 或其他服务的运行时。
+
 ## 维护与备份
 
 ```bash
