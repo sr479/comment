@@ -80,6 +80,21 @@ curl -fsS http://127.0.0.1:3086/api/health
 
 当前服务器 Docker Hub 连接超时时，可将官方 Node.js 24 安装在 `/opt/fanmaxi-node`，先用 Node.js 官方 `SHASUMS256.txt` 校验下载包，再使用该目录的 `node`/`npm`。服务模板默认采用此路径，并限制到 256MB 内存和 50% CPU；不会修改 `/usr/bin/node` 或其他服务的运行时。
 
+### 当前线上实例
+
+已使用独立 Node.js 24.22.0 + systemd 部署，服务名 `fanmaxi-feedback.service`。源码目录 `/opt/fanmaxi-feedback`，数据库为该目录下的 `data/feedback.sqlite`，备份在 `backups/`。服务以专用的 `fanmaxi` 非登录用户运行。本站证书使用独立的 `pingjia.xiangzhen.site` 名称，`deploy/certbot-reload.sh` 仅在本站证书续期时校验并平滑重载 Nginx。
+
+服务器采用 GitHub 官方源码归档发布，**该目录不是 Git checkout，不能直接运行 `git pull`**。后续发布应从本仓库已验证的完整 commit SHA 获取归档，保留 `.env`、`data/` 和 `backups/`，在独立 Node.js 的 PATH 下安装依赖及构建，完成后仅重启本站服务。更新前先执行下述备份命令。
+
+```bash
+sudo systemctl status fanmaxi-feedback.service --no-pager
+sudo journalctl -u fanmaxi-feedback.service -n 80 --no-pager
+sudo -u fanmaxi env DATABASE_PATH=/opt/fanmaxi-feedback/data/feedback.sqlite BACKUP_DIR=/opt/fanmaxi-feedback/backups /opt/fanmaxi-node/bin/node /opt/fanmaxi-feedback/scripts/backup.js
+sudo -u fanmaxi env DATABASE_PATH=/opt/fanmaxi-feedback/data/feedback.sqlite /opt/fanmaxi-node/bin/node /opt/fanmaxi-feedback/scripts/admin-init.js --username admin --reset
+```
+
+初始密码以私有文件单独交付，不写入 Git。后台可直接修改密码。发布与维护不要改动已有业务的 Node、容器、证书或虚拟主机。
+
 ## 维护与备份
 
 ```bash
