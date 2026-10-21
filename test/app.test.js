@@ -144,7 +144,7 @@ test('生产环境 Cookie、来源限制、安全头与真实限流', async (t) 
   }
 });
 
-test('文件数据库重开后评价和管理员会话仍然保留', async () => {
+test('文件数据库重开后评价和管理员账号仍然保留', async () => {
   const { mkdtempSync, rmSync } = await import('node:fs'); const { tmpdir } = await import('node:os'); const { join } = await import('node:path');
   const directory = mkdtempSync(join(tmpdir(), 'fanmaxi-test-')); const path = join(directory, 'data.sqlite');
   try {

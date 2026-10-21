@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useId, useRef, type ReactNode } from 'react';
 import { X } from 'lucide-react';
 
 export function Brand({ light = false }: { light?: boolean }) {
@@ -21,13 +21,14 @@ export function Flower({ className = '' }: { className?: string }) {
 }
 export function Dialog({ title, children, onClose, wide = false }: { title: string; children: ReactNode; onClose: () => void; wide?: boolean }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
   useEffect(() => {
     const dialog = ref.current; dialog?.showModal();
     const before = document.body.style.overflow; document.body.style.overflow = 'hidden';
     return () => { dialog?.close(); document.body.style.overflow = before; };
   }, []);
-  return <dialog ref={ref} className={`dialog ${wide ? 'dialog-wide' : ''}`} onCancel={onClose} onClick={(event) => { if (event.target === ref.current) onClose(); }}>
-    <div className="dialog-header"><h2>{title}</h2><button className="icon-button" onClick={onClose} aria-label="关闭"><X size={20}/></button></div>
+  return <dialog ref={ref} aria-labelledby={titleId} className={`dialog ${wide ? 'dialog-wide' : ''}`} onCancel={onClose} onClick={(event) => { if (event.target === ref.current) onClose(); }}>
+    <div className="dialog-header"><h2 id={titleId}>{title}</h2><button className="icon-button" onClick={onClose} aria-label="关闭"><X size={20}/></button></div>
     {children}
   </dialog>;
 }

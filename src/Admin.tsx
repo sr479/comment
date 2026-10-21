@@ -12,7 +12,7 @@ const pageNames = { reviews: '评价管理', staff: '员工管理', qr: '评价�
 function Stars({ value }: { value: number }) {
   return <span className="stars" aria-label={`${value} 星`}>{[1, 2, 3, 4, 5].map((n) => <Star key={n} size={13} strokeWidth={1.4} fill={n <= value ? 'currentColor' : 'none'} className={n <= value ? '' : 'star-empty'}/>)}</span>;
 }
-function Login({ onLogin }: { onLogin: (session: Session) => void }) {
+function Login({ onLogin, notice }: { onLogin: (session: Session) => void; notice?: string }) {
   const [username, setUsername] = useState(''); const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); const [error, setError] = useState(''); const [busy, setBusy] = useState(false);
   async function submit(event: FormEvent) {
@@ -29,7 +29,7 @@ export default function Admin() {
   const [message, setMessage] = useState(''); const [error, setError] = useState('');
   const [stats, setStats] = useState<Stats | null>(null); const [reviews, setReviews] = useState<Review[]>([]);
   const [total, setTotal] = useState(0); const [pageNumber, setPageNumber] = useState(1);
-  const [filters, setFilters] = useState<Filters>(blankFilters); const [refresh, setRefresh] = useState(0); const [loading, setLoading] = useState(false);
+  const [filters, setFilters] = useState<Filters>(blankFilters); const [refresh, setRefresh] = useState(0); const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Review | null>(null);
   const signIn = useCallback((value: Session) => { setCsrf(value.csrf); setSession(value); setError(''); }, []);
   const handleError = useCallback((err: unknown) => {
@@ -53,7 +53,7 @@ export default function Admin() {
     return () => { ignore = true; clearTimeout(timer); };
   }, [session, page, pageNumber, filters, refresh, handleError]);
   if (checking) return <div className="loading"><LoaderCircle className="spin" size={20}/> 正在打开工作台…</div>;
-  if (!session) return <Login onLogin={signIn}/>;
+  if (!session) return <><Login onLogin={signIn} notice={message}/>{message && <div className="toast" role="status"><CircleCheck size={17}/>{message}</div>}</>;
   async function logout() {
     try { await post('/admin/logout'); setSession(null); setCsrf(''); } catch (err) { handleError(err); }
   }
@@ -79,9 +79,9 @@ export default function Admin() {
             <div className="pagination"><span>共 {total} 条 · 每页 20 条</span><div><button className="icon-button" disabled={pageNumber <= 1} onClick={() => setPageNumber((n) => n - 1)} aria-label="上一页"><ChevronLeft size={16}/></button><span>{pageNumber} / {Math.max(1, Math.ceil(total / 20))}</span><button className="icon-button" disabled={pageNumber >= Math.ceil(total / 20)} onClick={() => setPageNumber((n) => n + 1)} aria-label="下一页"><ChevronRight size={16}/></button></div></div>
           </section>
         </>}
-        {page === 'staff' && <StaffManager notify={setMessage} onError={handleError}/>}
-        {page === 'qr' && <QrPanel notify={setMessage} onError={handleError}/>}
-        {page === 'settings' && <AccountSettings username={session.username} notify={setMessage} onError={handleError} onChanged={() => { setSession(null); setCsrf(''); }}/>}
+        {page === 'staff' && <StaffManager key={refresh} notify={setMessage} onError={handleError}/>}
+        {page === 'qr' && <QrPanel key={refresh} notify={setMessage} onError={handleError}/>}
+        {page === 'settings' && <AccountSettings key={refresh} username={session.username} notify={setMessage} onError={handleError} onChanged={() => { setSession(null); setCsrf(''); }}/>}
         <footer className="admin-footer">延安梵玛西 · 管理工作台<span>认真倾听，用心回应。</span></footer>
       </main>
     </div>
